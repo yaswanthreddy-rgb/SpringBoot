@@ -56,4 +56,20 @@ public class StudentService {
         studentRepository.deleteById(id);
         return true;
     }
+
+
+    public Boolean deleteStudentSoftly(Long id) {
+        Optional<Student> studentResp = studentRepository.findById(id);
+
+        if (studentResp.isEmpty()) {
+            return false;
+        }
+
+        Student student = studentResp.get();
+        student.setDeleted(true);
+        studentRepository.save(student);
+
+        return true;
+    }
+
 }
